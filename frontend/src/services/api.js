@@ -113,7 +113,7 @@ async function request(endpoint, options = {}) {
       }
 
       // If protected route returns 401 Unauthorized, automatically sign out and notify
-      if (response.status === 401 && endpoint !== '/auth/login') {
+      if (response.status === 401 && endpoint !== '/auth/login' && endpoint !== '/auth/google') {
         authStorage.clearAuth();
         window.dispatchEvent(new CustomEvent('auth:unauthorized', {
           detail: { message: errorMessage || 'Your session has expired. Please sign in again.' }
@@ -143,6 +143,10 @@ export const api = {
   login: (credentials) => request('/auth/login', {
     method: 'POST',
     body: JSON.stringify(credentials),
+  }),
+  googleLogin: (googlePayload) => request('/auth/google', {
+    method: 'POST',
+    body: JSON.stringify(googlePayload),
   }),
   getCurrentUser: () => request('/auth/me'),
 

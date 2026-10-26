@@ -202,3 +202,11 @@ class LoginResponse(BaseModel):
     token_type: str = "bearer"
     user: UserProfile
 
+
+class GoogleLoginRequest(BaseModel):
+    credential: Optional[str] = Field(None, description="Google OAuth ID Token / credential")
+    email: Optional[str] = Field(None, description="Google verified user email")
+    name: Optional[str] = Field(None, description="Google user full name")
+    sub: Optional[str] = Field(None, description="Google user unique ID")
+
+
